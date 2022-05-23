@@ -131,3 +131,7 @@ a.logo a, a.logo:visited {
 .tablecont{
   width: 45%;
 }
+
+.off {
+  visibility: collapse;
+}

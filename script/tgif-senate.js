@@ -23,8 +23,8 @@ function buildTable(membersArr) {
       link.setAttribute("href", membersArr[i].url)
       row.insertCell().append(link);
       let td =row.insertCell();
-      console.log(td.id=`${members[i].party}`,'id');
-     // td.id=`${members[i].party}`;
+      
+      td.id=`${members[i].party}`;
       td.innerHTML = membersArr[i].party;
       
       row.insertCell().innerHTML = membersArr[i].state;
@@ -46,43 +46,26 @@ function filterKey(e) {
   let name = tgt.value;
   
   let keys = document.querySelectorAll(`[id^=${name}]`);
-  console.log(keys,'cc')
+  console.log(keys,'keys')
+  
   for (let cell of keys) {
-    if (tgt.checked) {
-     
-      cell.closest('tr').classList;
-      console.log( cell.closest('tr').classList,'sss')
-      console.log( cell.closest('tr').classList.remove('off'), 'xx');
-    } else {
-      cell.closest('tr').classList.add('off');
-    }
+    console.log(cell,'cell')
+      if (tgt.checked) {
+       cell.closest("tr").classList.remove("off")  
+      } else {
+        cell.closest("tr").classList.add("off")  
+      }
   }
 }
 
-filters.onchange = filterKey;
-
-
-
-function createFilters(array) {
-  let set = Array.from(new Set([...array]));
-  set.forEach(function(name) {
-    let chk = `<label><input type="checkbox" data-filter="${name}" checked>${name}</label>`;
-    filters.lastElementChild.insertAdjacentHTML('beforeend', chk);
-  });
-};
-
-
-
-
-
-
+filters.onchange = filterKey
 
 
 
 //llamamos a buildTable() para que nos cree la tabla
 
 
-var republican = document.getElementById("R");
+/*var republican = document.getElementById("R");
 var indipendent = document.getElementById("ID");
 var democratic  = document.getElementById("D");
 
@@ -124,4 +107,4 @@ indipendent.addEventListener('change', function() {
     buildTable(members);
     console.log("Checkbox is not checked..");
   }
-});
+});*/
