@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Document</title>
+    
+</head>
+<body>
+
+    <script>
+        const table = document.querySelector("table");
+        const filters = document.querySelector('#filterType');
+        
+        function generateTable(table, array) {
+          let row, cell;
+          array.forEach(function(obj) {
+            row = table.insertRow();
+            /*
+            Object.entries returns an array of key/value pairs of
+            an object
+            To access kv pairs, detsructure each pair: [key, value]
+            Each cell is assigned 'data-key' with value 
+            */
+            for (let [key, value] of Object.entries(obj)) {
+              cell = row.insertCell()
+              let text = document.createTextNode(value);
+              cell.appendChild(text);
+              cell.dataset.key = value;
+            }
+          });
+          // generateTableHead is called on return
+          let keys = Object.keys(array[0]);
+          return generateTableHead(table, keys);
+        }
+        
+        function generateTableHead(table, keys) {
+          let thead = table.createTHead();
+          let row = thead.insertRow();
+          for (let key of keys) {
+            let th = document.createElement("th");
+            let text = document.createTextNode(key);
+            th.appendChild(text);
+            row.appendChild(th);
+          }
+        }
+        
+        /*
+        Pass the name of header and the array
+        The return is an array of values under the given key (header)
+        */
+        function getKey(target, array) {
+          let keyArray = array.map(function(obj) {
+            for (let [key, value] of Object.entries(obj)) {
+              if (key === target) {
+                return value;
+              }
+            }
+          });
+          /*
+          A fieldset is created with id of key
+          The array of values is passed to createFilters on return
+          */
+          filters.insertAdjacentHTML('beforeend', `<fieldset id='${target}'><legend>${target}</legend></fieldset>`)
+          createFilters(keyArray);
+        }
+        
+        /*
+        A Set of the given array is converted back into an array
+        of unique values
+        Each checkbox is inserted into the newest fieldset
+        */
+        function createFilters(array) {
+          let set = Array.from(new Set([...array]));
+          set.forEach(function(name) {
+            let chk = `<label><input type="checkbox" data-filter="${name}" checked>${name}</label>`;
+            filters.lastElementChild.insertAdjacentHTML('beforeend', chk);
+          });
+        };
+        
+        /*
+        This is the callback function called whenever a checkbox is
+        checked or unchecked.
+        The checked/unchecked checkbox (e.target) determines which cell is affected by comparing data-key and data-filter attribute values.
+        */
+        function filterKey(e) {
+          const tgt = e.target;
+          let name = tgt.dataset.filter;
+          let keys = document.querySelectorAll(`[data-key="${name}"]`);
+          for (let cell of keys) {
+            if (tgt.checked) {
+              cell.closest('tr').classList.remove('off');
+            } else {
+              cell.closest('tr').classList.add('off');
+            }
+          }
+        }
+        
+        generateTable(table, array) 
+        
+        /*
+        Pass any applicable key (header) and create a new filter
+        */
+        // Uncomment any or all 
+        // getKey('name', array);
+        // getKey('surname', array);
+        getKey('department', array);
+        
+        // Register the form to the change event
+        filters.onchange = filterKey;
+    </script>
+
+</body>
+</html>
