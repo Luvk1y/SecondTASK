@@ -59,6 +59,24 @@
       <p>The major power of the House is to pass federal leislation that affects the entire country, although its bills must also be passed by the Senate and further agreed to by the U.S. President before becoming law (unless both the House and Senate re-pass the legislation with a two-thirds majority in each chamber). The House has some exclusive powers: the power to initiate revenue bills, to impeach officials (impeached officials are subsequently tried in the Senate), and to elect the U.S. President in case there is no majority in the Electoral College.</p>
       <p>Each U.S. state is represented in the House in proportion to its population as measured in the census, but every state is entitled to at least one representative. </p>
      	  
+      <div class="tags">
+        <p class="titlefilter">Filter by party: </p>
+       
+        <form id='filterType'>
+            <input name ="R" type="checkbox"   value ="R" /><label class="etiq"> Republican </label>
+           
+            <input name ="D" type="checkbox" value ="D" /><label class="etiq"> Democrat </label>
+            
+            <input  name = "ID" type="checkbox"  value ="ID"  /><label class="etiq"> Independent </label>
+          </form>
+    
+       
+        <p class="titlefilter">Filter by state: </p>
+        <select id="filterstates" class="form-select" aria-label="All states" style="width: 20%;"> 
+          <option selected>All states</option> 
+        </select>
+      </div>
+      
       <table class="table table-striped table-hover">
         <thead>
           <tr>

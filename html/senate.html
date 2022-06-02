@@ -7,7 +7,7 @@
    
   </head>
 
-  <body>
+  <body style="margin: 5%">
     <a class="logo" href="./home.html">TGIF</a>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -68,13 +68,19 @@
         uniformed officers, as well as trial of federal officials impeached by the House.
       </p>
       <div class="tags">
-        <p>Filter by party: </p>
+        <p class="titlefilter">Filter by party: </p>
+       
         <form id='filterType'>
-          <input name ="R" type="checkbox"   value ="R" /><label> Republican </label>
-          <input name ="D" type="checkbox" value ="D" /><label> Democrat </label>
-          <input  name = "ID" type="checkbox"  value ="ID"  /><label> Independent </label>
-        </form>
-        <select id="filterstates" class="form-select" aria-label="All states"> 
+            <input name ="R" type="checkbox"   value ="R" /><label class="etiq"> Republican </label>
+           
+            <input name ="D" type="checkbox" value ="D" /><label class="etiq"> Democrat </label>
+            
+            <input  name = "ID" type="checkbox"  value ="ID"  /><label class="etiq"> Independent </label>
+          </form>
+    
+       
+        <p class="titlefilter">Filter by state: </p>
+        <select id="filterstates" class="form-select" aria-label="All states" style="width: 20%;"> 
           <option selected>All states</option> 
         </select>
       </div>

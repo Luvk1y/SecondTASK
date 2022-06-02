@@ -1,55 +1,46 @@
-import {data} from './senate.mjs';
+import {senateData} from './senate.mjs';
 
+let members = senateData.results[0].members;
 
-let members = data.results[0].members;
-
-
-let filtMembers = members.filter(function (el){
-    
-    return el.first_name &&
-        el.last_name &&
-        el.votes_with_party_pct &&
-        el.missed_votes &&
-        el.missed_votes_pct &&
-        el.url;
+let defMembers = members.sort(function(a, b) {
+  return a.missed_votes - b.missed_votes;
 });
-console.log(filtMembers,"filtro");
 
-createTable(filtMembers)
+let defMembersup = defMembers.slice(-10);
 
-function createTable(membersArr) {
-    document.getElementById("tbody").innerHTML = "";
-    membersArr.forEach(createTableRow)
+let defmembersUP = defMembersup.sort(function(a,b){
+  return b.votes_with_party_pct - a.votes_with_party_pct;
+})
+
+let defMembersdown = defMembers.slice(0,10);
+
+//create function to build a table in js 
+buildTable(defmembersUP);
+function buildTable(membersArr) {
+  document.getElementById("tbody1").innerHTML = ""; //traemos el elemento con id tbody y dentro le añadimos un texto vacio
+  for (var i = 0; i < membersArr.length; i++) { //para cada i menor que array.length
+      var row = document.createElement("tr"); //let row crear un elemento tr
+      var link = document.createElement("a"); //let link crear un elemento a normalmente es un hipervinculo o algo parecido
+      link.textContent = membersArr[i].first_name + " " + (membersArr[i].middle_name || "") + " " + membersArr[i].last_name; //el contenido de text content es el first middle y last name en cada indice i del array
+      link.setAttribute("href", membersArr[i].url) //link que es crear un elemento a tiene a su vez un setAttribute que le da un atributo id name role href etc al elemento
+      row.insertCell().append(link); //a row que es crear un tr le aplicamos insertCell que crea una celda y con append añadimos link dentro de la celda
+      row.insertCell().innerHTML = membersArr[i].missed_votes;
+      row.insertCell().innerHTML = membersArr[i].missed_votes_pct;
+      document.getElementById("tbody1").append(row) //nos traemos tbody y le añadimos row
+  }
 }
 
-function createTableRow(member) {    
-// Member = {name: xxx, party: D, state: MI,....} and getting the next object in each iteration
-    const tableRow = document.createElement('tr');
-    Object.values(member).forEach((value, index, array) => {   
-// Object.values(member) is ['xxx', 'D', 'MI,....]
-        if (index < array.length - 1){                
-// This condition is to filter the urls not to show in the table. 
-//Only one array has been created (summarySenateData).
-// Another array for the urls wasn't created to have the consistency.
-            const rowCell = document.createElement('td');
-            const rowCellText = (index === 0 && array[array.length - 1]) //?createAnchorTag(value, array[array.length - 1]): document.createTextNode(${value}); 
-// This condition means: we are creating anchor tag in the name of a member in case;
-                ? createAnchorTag(value, array[array.length - 1])                       
-// Both the index is 0 which means we are creating the name cell in the table and the
-                : document.createTextNode(${value});                                     
-// Member in the loop has an url. If this condition is false then we only show the name as plain text, not as a link.
-            rowCell.appendChild(rowCellText);
-            tableRow.appendChild(rowCell);
-        }
-    })
-    document.getElementById("tbody").append(row)
-}
-
-function createAnchorTag(anchorText, urlValue) {
-    const anchorTag = document.createElement('a');
-    const anchorTagText = document.createTextNode(anchorText);
-    anchorTag.href = urlValue;
-    anchorTag.target = '_blank';
-    anchorTag.appendChild(anchorTagText);
-    return anchorTag;
+buildTable2(defMembersdown);
+function buildTable2(membersArr) {
+  document.getElementById("tbody2").innerHTML = ""; //traemos el elemento con id tbody y dentro le añadimos un texto vacio
+  for (var i = 0; i < membersArr.length; i++) { //para cada i menor que array.length
+      var row = document.createElement("tr"); //let row crear un elemento tr
+      var link = document.createElement("a"); //let link crear un elemento a normalmente es un hipervinculo o algo parecido
+      link.textContent = membersArr[i].first_name + " " + (membersArr[i].middle_name || "") + " " + membersArr[i].last_name; //el contenido de text content es el first middle y last name en cada indice i del array
+      link.setAttribute("href", membersArr[i].url) //link que es crear un elemento a tiene a su vez un setAttribute que le da un atributo id name role href etc al elemento
+      row.insertCell().append(link); //a row que es crear un tr le aplicamos insertCell que crea una celda y con append añadimos link dentro de la celda
+      row.insertCell().innerHTML = membersArr[i].missed_votes;
+      row.insertCell().innerHTML = membersArr[i].missed_votes_pct;
+      document.getElementById("tbody2").append(row) //nos traemos tbody y le añadimos row
+  }
 }

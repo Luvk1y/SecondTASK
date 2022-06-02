@@ -32,7 +32,6 @@ nav > ul > li:hover {
 }
 
 table, th, td {
-  border: 1px solid #3498DB;
   border-collapse: collapse;
   padding: 5px;
 }
@@ -115,13 +114,15 @@ a.logo a, a.logo:visited {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  margin-top: 1%;
 }
 
 .rowparts{
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
+  margin-top: 1%;
 }
 
 .attendance{
@@ -134,4 +135,19 @@ a.logo a, a.logo:visited {
 
 .off {
   visibility: collapse;
+}
+
+.tags{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: darkgray;
+}
+
+.titlefilter{
+  margin-bottom: 0px;
+}
+
+.etiq{
+  margin-right: 20px;
 }
